@@ -1,36 +1,133 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# BAR Estimate Compliance Writer
 
-## Getting Started
+A production-leaning starter for a California-focused automotive estimate drafting product.
 
-First, run the development server:
+This project is designed for dealerships and repair shops that need to produce:
+- customer-friendly repair estimates
+- BAR-aware disclosures
+- separated towing and tear-down charges
+- cleaner documentation before full DMS integration exists
+
+## Why this exists
+
+California repair shops and dealership service departments operate under tighter documentation requirements than most generic estimate builders support out of the box. This repo is an initial portfolio-quality vertical SaaS foundation focused on that gap.
+
+It demonstrates:
+- a modern web UI built with Next.js and TypeScript
+- typed compliance logic separated from presentation code
+- a structure that can grow into a real multi-tenant SaaS product
+- maintainable code with comments and predictable organization for future contributors
+
+## Features in this version
+
+- Interactive estimate builder UI
+- Customer-friendly repair language panel
+- California BAR-oriented compliance checklist
+- Disclosure generation for:
+  - third-party payors
+  - tear-down/disassembly workflows
+  - towing charges
+- Estimate totals for labor, parts, tax, and disclosed extras
+- Production-minded project structure
+
+## Stack
+
+- Next.js 15
+- React 19
+- TypeScript
+- Tailwind CSS 4
+
+## Local development
+
+```bash
+npm install
+npm run dev
+```
+
+Then open:
+
+```bash
+http://localhost:3000
+```
+
+## Scripts
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run build
+npm run start
+npm run lint
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Project structure
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```text
+src/
+  app/
+    globals.css
+    layout.tsx
+    page.tsx
+  components/
+    estimate-builder.tsx
+  lib/
+    compliance.ts
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Notes for future engineers
 
-## Learn More
+### 1. Compliance logic is intentionally isolated
+`src/lib/compliance.ts` contains business logic for:
+- line-item totals
+- aggregate totals
+- checklist generation
+- disclosure generation
 
-To learn more about Next.js, take a look at the following resources:
+That separation matters because compliance logic will change more often than the page shell.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 2. This is a strong starter, not the finished SaaS
+To make this production-ready for paying dealerships, the next major steps are:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- add authentication and authorization
+- persist estimates in a real database
+- add immutable audit logging
+- add PDF generation and customer approval workflows
+- connect to DMS providers like Tekion, CDK, and Reynolds
+- add account-level dealership settings and branding
+- create a document export / print workflow
+- add tests for California-specific estimate scenarios
 
-## Deploy on Vercel
+### 3. Suggested next backend architecture
+A realistic next version would use:
+- PostgreSQL
+- Prisma or Drizzle ORM
+- NextAuth / Clerk / Auth0
+- object storage for exported PDFs
+- event logging for estimate revisions and approvals
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Production roadmap
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Phase 1
+- Persist estimate drafts
+- Add dealership settings
+- Add approval status workflow
+- Add printable estimate output
+
+### Phase 2
+- Customer signature / approval link
+- Estimate revision history
+- Role-based access
+- API endpoints for dealership systems
+
+### Phase 3
+- DMS sync
+- VIN decoding
+- labor guide integration
+- shop-level analytics and audit reports
+
+## Important disclaimer
+
+This repository is a workflow and product prototype, not legal advice. Teams shipping it commercially should review the final implementation with qualified California automotive compliance counsel and validate current BAR guidance before rollout.
+
+## License
+
+MIT
